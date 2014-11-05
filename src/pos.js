@@ -31,11 +31,22 @@ function findItem(one, itemList){
   }, undefined);
 }
 
+function prepareInput(input){
+  return input.reduce(function(result, one){
+    var pairs = one.split('-'),
+        num = pairs[1] || 1;
+    loop(num, function(){
+      result.push(pairs[0]);
+    });
+    return result;
+  }, []);
+}
+
 function printInventory(input) {
   var allItems = loadAllItems(),
       purchases = [];
 
-  input.forEach(function(one){
+  prepareInput(input).forEach(function(one){
     var existed = findItem(one, purchases);
     if(existed){
       existed.quantity += 1;

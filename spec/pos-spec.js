@@ -60,4 +60,18 @@ describe('POS', function(){
       expect(result).toBe(expectedResult);
   });
 
+  it('should print receipt for 2kg apple', function(){
+      var input = ['ITEM000002-2'],
+      expectedResult = '***<没钱赚商店>购物清单***\n' +
+          '名称：苹果，数量：2斤，单价：5.50(元)，小计：11.00(元)\n' +
+          '----------------------\n' +
+          '----------------------\n' +
+          '总计：11.00(元)\n' +
+          '节省：0.00(元)\n' +
+          '**********************';
+
+      var result = printInventory(input);
+
+      expect(result).toBe(expectedResult);
+  });
 });
