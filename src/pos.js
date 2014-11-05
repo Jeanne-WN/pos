@@ -1,6 +1,6 @@
 function printItemLineFor(item){
   return '名称：' + item.name + '，' +
-  '数量：1' + item.unit + '，' +
+  '数量：'+ item.quantity + item.unit + '，' +
   '单价：' + item.price.toFixed(2) + '(元)，' +
   '小计：' + item.price.toFixed(2) + '(元)\n'
 }
@@ -31,7 +31,7 @@ function printInventory(input) {
 
   input.forEach(function(one){
     allItems.forEach(function(item){
-      if(item.barcode == one) purchases.push(item);
+      if(item.barcode == one) purchases.push(new Item(item));
     });
   });
 
