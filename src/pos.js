@@ -1,7 +1,7 @@
 function printItemLineFor(item){
   return '名称：' + item.name + '，' +
   '数量：'+ item.quantity + item.unit + '，' +
-  '单价：' + item.price.toFixed(2) + '(元)，' +
+  '单价：' + item.unitPrice.toFixed(2) + '(元)，' +
   '小计：' + item.price.toFixed(2) + '(元)\n'
 }
 
@@ -25,14 +25,24 @@ function receiptFor(purchases){
           '**********************';
 }
 
+function findItem(one, itemList){
+  return itemList.reduce(function(result, item){
+    return item.barcode == one ? item : result;
+  }, undefined);
+}
+
 function printInventory(input) {
   var allItems = loadAllItems(),
       purchases = [];
 
   input.forEach(function(one){
-    allItems.forEach(function(item){
-      if(item.barcode == one) purchases.push(new Item(item));
-    });
+    var existed = findItem(one, purchases);
+    if(existed){
+      existed.quantity += 1;
+      existed.price += existed.unitPrice;
+    }else{
+      purchases.push(new Item(findItem(one, allItems)));
+    }
   });
 
 
